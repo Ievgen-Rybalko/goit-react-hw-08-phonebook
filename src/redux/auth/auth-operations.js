@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+//import { getContacts } from '../contacts/contact-selectors';
 
 axios.defaults.baseURL = 'http://connections-api.herokuapp.com';
 
@@ -75,6 +76,7 @@ const fetchCurrentUser = createAsyncThunk(
       return thunkAPI.rejectWithValue();
     }
 
+    console.log('Токена есть, ща как засетим СurrentUserЖ:', persistedToken);
     token.set(persistedToken);
     try {
       const { data } = await axios.get('/users/current');

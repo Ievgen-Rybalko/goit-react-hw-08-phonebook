@@ -16,6 +16,7 @@ const {
   updateContactSuccess,
   updateContactError,
   changeFilter,
+  contactsClear,
 } = actions;
 // {
 //   contacts: {
@@ -37,6 +38,11 @@ const items = createReducer([], {
     ),
   [deleteContactSuccess]: (state, { payload }) => {
     return state.filter(({ id }) => id !== payload);
+  },
+  [contactsClear]: state => {
+    console.log('очищаю контакты только в стейте');
+    state = [];
+    return state;
   },
 });
 

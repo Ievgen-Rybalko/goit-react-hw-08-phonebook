@@ -1,10 +1,10 @@
 //import { combineReducers } from 'redux';
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 //import logger from 'redux-logger';
 //import { composeWithDevTools } from 'redux-devtools-extension';   ---у тулкита под капотом
 import { authReducer } from './auth';
 import contactsReducer from './contacts/contact-reducer';
-import { logger } from 'redux-logger';
+//import { logger } from 'redux-logger';
 import {
   persistStore,
   persistReducer,
@@ -23,18 +23,20 @@ const userPersistConfig = {
   whitelist: ['token'],
 };
 
+const middleware = [
+  ...getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }),
+];
+
 const store = configureStore({
   reducer: {
     auth: persistReducer(userPersistConfig, authReducer),
-
     contacts: contactsReducer,
   },
-  midleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }).concat(logger),
+  middleware,
   devTools: process.env.NODE_ENV === 'development', //devTools: true -- it goes by default
 });
 const persistor = persistStore(store);

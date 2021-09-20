@@ -13,6 +13,8 @@ const styles = {
   },
 };
 
+console.log('log in logs');
+
 export default function LoginView() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
@@ -31,6 +33,7 @@ export default function LoginView() {
 
   const handleSubmit = e => {
     e.preventDefault();
+
     dispatch(authOperations.logIn({ email, password }));
     setEmail('');
     setPassword('');
