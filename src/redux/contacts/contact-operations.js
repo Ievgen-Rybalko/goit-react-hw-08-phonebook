@@ -12,8 +12,8 @@ import axios from 'axios';
 //   },
 // };
 
-console.log('axiosthorization :', axios.defaults.headers.common.Authorization);
-console.log('axios.defaults.baseURL :', axios.defaults.baseURL);
+//console.log('axiosthorization :', axios.defaults.headers.common.Authorization);
+//console.log('axios.defaults.baseURL :', axios.defaults.baseURL);
 
 const {
   fetchContactRequest,

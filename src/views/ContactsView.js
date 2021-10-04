@@ -47,7 +47,7 @@ export default function ContactsView() {
         <div style={styles.error}>
           <Alert
             message="Error"
-            description={`Some thing went wrong! Please, try again! \n ${errorAuth}`}
+            description={`Something went wrong on fetching contacts! Please, try again! \n ${errorAuth}`}
             type="error"
             showIcon
           />{' '}
