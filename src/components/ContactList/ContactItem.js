@@ -6,6 +6,10 @@ import { updateContact } from '../../redux/contacts/contact-operations'; // for 
 
 import styles from './ContactList.module.css';
 
+import 'antd/dist/antd.css';
+//import './index.css';
+import { Button } from 'antd';
+
 const ContactItem = ({ id, name, number }) => {
   const dispatch = useDispatch();
   const [isUpdating = false, setIsUpdating] = useState();
@@ -24,33 +28,57 @@ const ContactItem = ({ id, name, number }) => {
 
   return (
     <li className={styles.contactlist__item}>
-      <p>
-        {name}, {number}
-      </p>
-      <button
-        type="button"
-        className={styles.button__delete}
-        onClick={() => dispatch(deleteContact(id))}
-      >
-        Удалить
-      </button>
+      {isUpdating ? (
+        <>
+          <span>{name},</span>
+          <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
+            <label style={styles.label}>
+              <input type="text" value={newNumber} onChange={handleChange} />
+            </label>
 
-      <button
-        type="button"
-        className={styles.button__delete}
-        onClick={() => setIsUpdating(true)}
-      >
-        Обновить
-      </button>
+            <span className={styles.Button}>
+              <Button
+                type="primary"
+                shape="round"
+                size={'small'}
+                htmlType="submit"
+              >
+                Update
+              </Button>
+            </span>
+          </form>
+        </>
+      ) : (
+        <>
+          <span>
+            {name}, {number}
+          </span>
+          <span className={styles.Buttons_group}>
+            <span className={styles.Button}>
+              <Button
+                type="primary"
+                htmlType="button"
+                shape="round"
+                size={'small'}
+                onClick={() => setIsUpdating(true)}
+              >
+                Update
+              </Button>
+            </span>
 
-      {isUpdating && (
-        <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
-          <label style={styles.label}>
-            <input type="text" value={newNumber} onChange={handleChange} />
-          </label>
-
-          <button type="submit">Update!</button>
-        </form>
+            <span className={styles.Button}>
+              <Button
+                type="primary"
+                htmlType="button"
+                shape="round"
+                size={'small'}
+                onClick={() => dispatch(deleteContact(id))}
+              >
+                Delete
+              </Button>
+            </span>
+          </span>
+        </>
       )}
     </li>
   );

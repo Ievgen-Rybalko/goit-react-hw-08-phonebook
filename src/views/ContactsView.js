@@ -1,6 +1,9 @@
 //import { useState, useEffect } from 'react';
 //import { useDispatch, useSelector } from 'react-redux';
 
+import { Alert } from 'antd';
+import 'antd/dist/antd.css';
+
 import ContactForm from '../components/ContactForm/ContactForm';
 import ContactList from '../components/ContactList/ContactList';
 import Filter from '../components/ContactList/Filter';
@@ -10,13 +13,21 @@ import { useSelector } from 'react-redux';
 
 //import { todosOperations, todosSelectors } from '../redux/todos';
 
+const styles = {
+  error: {
+    textAlign: 'left',
+  },
+};
+
 export default function ContactsView() {
   //const dispatch = useDispatch();
   //const isLoading = useSelector(Selectors.getLoading);
 
   // useEffect(() => dispatch(todosOperations.fetchCurrentUser()), [dispatch]);
   const isLoadingToken = useSelector(authSelectors.getIsLoadingToken);
-  console.log('isLoading', isLoadingToken);
+  const errorAuth = useSelector(authSelectors.getErrorAuth);
+
+  //console.log('isLoading', isLoadingToken);
 
   return (
     <>
@@ -31,6 +42,16 @@ export default function ContactsView() {
             <ContactList />
           </Section>{' '}
         </>
+      )}
+      {errorAuth && (
+        <div style={styles.error}>
+          <Alert
+            message="Error"
+            description={`Some thing went wrong! Please, try again! \n ${errorAuth}`}
+            type="error"
+            showIcon
+          />{' '}
+        </div>
       )}
     </>
   );

@@ -9,9 +9,10 @@ const styles = {
     padding: 12,
     fontWeight: 700,
     color: '#2A363B',
+    marginLeft: '15px',
   },
   activeLink: {
-    color: '#E84A5F',
+    color: '#1a5ef3ec',
   },
 };
 
@@ -20,7 +21,7 @@ const Navigation = () => {
   return (
     <nav>
       <NavLink to="/" exact style={styles.link} activeStyle={styles.activeLink}>
-        Главная
+        Main
       </NavLink>
 
       {isLoggedIn && (
@@ -30,7 +31,7 @@ const Navigation = () => {
           style={styles.link}
           activeStyle={styles.activeLink}
         >
-          Контакты
+          Contacts
         </NavLink>
       )}
     </nav>

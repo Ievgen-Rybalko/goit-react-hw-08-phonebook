@@ -40,7 +40,7 @@ const items = createReducer([], {
     return state.filter(({ id }) => id !== payload);
   },
   [contactsClear]: state => {
-    console.log('очищаю контакты только в стейте');
+    //console.log('очищаю контакты только в стейте');
     state = [];
     return state;
   },

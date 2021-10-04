@@ -1,6 +1,7 @@
 import ContactItem from './ContactItem';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { getLoading, getError } from '../../redux/contacts/contact-selectors';
 import {
   getContactsTotal,
@@ -19,22 +20,22 @@ const ContactList = () => {
   useEffect(() => dispatch(fetchAllContacts()), [dispatch]);
 
   return (
-    <div>
-      {loading && <h2>Loading contacts...</h2>}
+    <>
       {error && <h2>Error on contacts fetching: {error.message}</h2>}
-      <p className={styles.title}>
-        Contact list.{' '}
-        <span style={{ color: 'white', fontSize: '16px' }}>
-          Total contacts {useSelector(getContactsTotal)}
-        </span>{' '}
-        :
-      </p>
+      {loading ? (
+        <h3 className={styles.title}>Loading contacts...</h3>
+      ) : (
+        <h3 className={styles.title}>Contact list: </h3>
+      )}
       <ul>
         {contactsFiltered.map(({ name, number, id }) => {
           return <ContactItem key={id} id={id} name={name} number={number} />;
         })}
       </ul>
-    </div>
+      <span style={{ color: 'white', fontSize: '16px' }}>
+        Total contacts: {useSelector(getContactsTotal)}
+      </span>{' '}
+    </>
   );
 };
 

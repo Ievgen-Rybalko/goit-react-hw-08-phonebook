@@ -6,6 +6,10 @@ import { addContact } from '../../redux/contacts/contact-operations';
 //import actions from '../../redux/contacts/contact-actions';
 import styles from './ContactForm.module.css';
 
+import 'antd/dist/antd.css';
+
+import { Button } from 'antd';
+
 function ContactForm() {
   const contacts = useSelector(getContacts);
 
@@ -43,15 +47,16 @@ function ContactForm() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <label className={styles.title}>
           Name
           <input
-            className={styles.button}
+            className={styles.input}
             type="text"
             name="name"
             value={name}
+            placeholder="Type a new name..."
             onChange={handleChange}
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
@@ -62,9 +67,10 @@ function ContactForm() {
         <label className={styles.title}>
           Number
           <input
-            className={styles.button}
+            className={styles.input}
             type="tel"
             name="number"
+            placeholder="Type a new number..."
             value={number}
             onChange={handleChange}
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -73,11 +79,15 @@ function ContactForm() {
           />
         </label>
 
-        <button type="submit" className={styles.button + ' ' + styles.small}>
+        <Button type="primary" htmlType="submit" shape="round" size={'small'}>
+          Save new contact
+        </Button>
+
+        {/* <button type="submit" className={styles.button + ' ' + styles.small}>
           Сохранить
-        </button>
+        </button> */}
       </form>
-    </div>
+    </>
   );
 }
 
